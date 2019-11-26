@@ -10,12 +10,16 @@
 #include "ozone/wayland/display.h"
 
 namespace ozonewayland {
+    
+static void display_handle_scale(void *data, struct wl_output *output, int32_t scale)
+{
+}
 
 WaylandScreen::WaylandScreen(wl_registry* registry, uint32_t id)
     : output_(NULL), rect_(0, 0, 0, 0) {
   static const wl_output_listener kOutputListener = {
       WaylandScreen::OutputHandleGeometry, WaylandScreen::OutputHandleMode,
-      WaylandScreen::OutputDone,
+      WaylandScreen::OutputDone, display_handle_scale,
   };
 
   output_ = static_cast<wl_output*>(
